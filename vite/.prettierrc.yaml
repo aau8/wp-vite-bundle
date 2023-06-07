@@ -1,0 +1,15 @@
+trailingComma: "es5"
+tabWidth: 4 # Кол-во пробелов в отступе
+semi: false # Точка с запятой в конце строки
+singleQuote: true # Одинарные кавычки
+bracketSameLine: false
+arrowParens: "always"
+bracketSpacing: true
+editorconfig: true
+useTabs: false
+printWidth: 150 # Длина строки, после которой редактор будет переоносить текст на другую строку
+quoteProps: "as-needed"
+insertPragma: false
+requirePragma: false
+endOfLine: "lf"
+indent_inner_html: true

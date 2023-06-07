@@ -1,0 +1,7 @@
+vite/node_modules
+vite/pnpm-lock.yaml
+vite/package-lock.json
+
+node_modules
+pnpm-lock.yaml
+package-lock.json

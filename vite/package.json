@@ -1,0 +1,31 @@
+{
+  "name": "project-name",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "cross-env APP_ENV=dev vite",
+    "build": "node config/removeAssetsBuild.js && vite build",
+    "preview": "vite preview",
+    "sprite": "webpack -c config/webpack.sprite.js && node config/deleteSpriteJS.js"
+  },
+  "devDependencies": {
+    "@rollup/plugin-alias": "^5.0.0",
+    "@rollup/plugin-node-resolve": "^15.0.2",
+    "autoprefixer": "^10.4.14",
+    "cross-env": "^7.0.3",
+    "sass": "^1.62.1",
+    "svg-spritemap-webpack-plugin": "^4.5.0",
+    "vite": "^4.3.2",
+    "vite-plugin-live-reload": "^3.0.2",
+    "vite-plugin-replace": "^0.1.1",
+    "webpack": "^5.83.1",
+    "webpack-cli": "^5.1.1"
+  },
+  "dependencies": {
+    "embla-carousel": "8.0.0-rc05",
+    "embla-carousel-class-names": "8.0.0-rc05",
+    "gsap": "^3.11.5",
+    "imagesloaded": "^5.0.0"
+  }
+}

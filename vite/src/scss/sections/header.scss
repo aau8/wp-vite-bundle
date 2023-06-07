@@ -1,0 +1,299 @@
+.header {
+    --header-height: 110px;
+    position: relative;
+    z-index: 3;
+
+    @media (max-width: $hide-menu) {
+        --header-height: 80px;
+    }
+
+    @media (max-width: 600px) {
+        --header-height: 60px;
+    }
+}
+
+.header__container {
+
+}
+
+.header__wrap {
+    height: var(--header-height);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.header__logo {
+    flex-shrink: 0;
+    width: 180px;
+    height: auto;
+
+    @media (max-width: 1200px) {
+        width: 130px;
+    }
+
+    @media (max-width: $mobile-l) {
+        width: 100px;
+    }
+}
+
+.menu {
+
+    @media (max-width: $hide-menu) {
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        min-height: 100vh;
+        height: 100%;
+        display: flex;
+        justify-content: flex-end;
+        background-color: rgba(0,0,0,0);
+        visibility: hidden;
+        transition: background-color $tr, visibility $tr;
+        overflow-x: hidden;
+
+        &.is-show {
+            background-color: rgba(0,0,0,.2);
+            visibility: visible;
+
+            .menu__wrap {
+                transform: translateX(0);
+            }
+        }
+    }
+}
+
+.menu__wrap {
+
+    @media (max-width: $hide-menu) {
+        max-width: 320px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        background-color: $light;
+        overflow: auto;
+        transform: translateX(100%);
+        transition: transform $tr;
+    }
+
+    @media (max-width: $mobile-l) {
+        max-width: none;
+    }
+}
+
+.menu__header {
+    display: none;
+
+    @media (max-width: $hide-menu) {
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: var(--header-height);
+        padding: 0 var(--container-padding);
+        border-bottom: 1px solid $border-color-light;
+    }
+}
+
+.menu__title {
+    font-size: rem(28);
+}
+
+.menu__body {
+
+    @media (max-width: $hide-menu) {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        padding: 0 var(--container-padding);
+        margin-top: 12px;
+    }
+}
+
+.menu__footer {
+    display: none;
+
+    @media (max-width: $hide-menu) {
+        display: initial;
+        padding: 16px var(--container-padding);
+        margin-top: 24px;
+    }
+}
+
+.menu__visim {
+    display: none;
+
+    @media (max-width: $hide-menu) {
+        display: flex;
+    }
+}
+
+.nav {
+
+}
+
+.nav__list,
+.sub-menu {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+
+    @media (max-width: 1200px) {
+        gap: 20px;
+    }
+
+    @media (max-width: $hide-menu) {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+.menu-item {
+    position: relative;
+
+    @media (min-width: 901px) {
+
+        &.menu-item-has-children {
+
+            & > .sub-menu {
+                position: absolute;
+                z-index: 1;
+                bottom: -20px;
+                left: 0;
+                transform: translate(0, 110%);
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 4px;
+                background-color: $light;
+                padding: 6px 0;
+                border-radius: $radius-s;
+                box-shadow: 0 4px 10px rgba(0,0,0,.2);
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity $tr, transform $tr;
+
+                &::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 20px;
+                    transform: translateY(-100%);
+                }
+
+                & > .menu-item {
+                    width: 100%;
+
+                    & > a {
+                        width: 100%;
+                        display: block;
+                        font-size: rem(20);
+                        padding: 4px 12px;
+                        transition: background-color $tr;
+
+                        @media (any-hover: hover) {
+
+                            &:hover {
+                                background-color: rgba(0,0,0,.1);
+                            }
+                        }
+                    }
+                }
+            }
+
+            & > a {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+
+                &::before {
+                    content: '';
+                    width: 12px;
+                    height: 12px;
+                    display: block;
+                    @include mask(center/contain no-repeat url(@sprite#arrow));
+                    background-color: currentColor;
+                    transition: transform $tr;
+
+                    @media (max-width: 1200px) {
+                        width: 12px;
+                        height: 12px;
+                    }
+                }
+
+                @media (max-width: 1200px) {
+                    gap: 6px;
+                }
+            }
+
+            @media (any-hover: hover) {
+
+                &:hover {
+
+                    & > .sub-menu {
+                        opacity: 1;
+                        transform: translate(0, 100%);
+                        pointer-events: fill;
+                    }
+
+                    & > a {
+
+                        &::before {
+                            transform: rotate(-180deg);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @media (max-width: $hide-menu) {
+        width: 100%;
+
+        & > .sub-menu {
+            gap: 6px;
+            margin-top: 8px;
+            font-size: rem(20);
+            opacity: .8;
+        }
+    }
+}
+
+.menu-item a {
+    font-weight: 700;
+    white-space: nowrap;
+    text-align: left;
+
+    @media (any-hover: hover) {
+
+        &:hover {
+            color: $accent;
+        }
+    }
+
+    @media (max-width: $hide-menu) {
+        display: block;
+        width: 100%;
+    }
+}
+
+.header__burger {
+    display: none;
+
+    @media (max-width: $hide-menu) {
+        display: block;
+    }
+}
+
+.header__visim {
+
+    @media (max-width: $hide-menu) {
+        display: none;
+    }
+}

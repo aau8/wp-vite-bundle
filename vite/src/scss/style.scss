@@ -1,0 +1,237 @@
+@use 'sass:math';
+@import './mixins';
+
+// ========== ШРИФТЫ ==========
+@include font('Lena', normal, 400, '@fonts/Lena.woff2');
+
+// ========== ПЕРЕМЕННЫЕ ==========
+$light: #fff;
+$dark: #3d3d3d;
+
+// Текст
+$text-primary: $dark;
+$text-light: $light;
+$text-second: #7d7d7d;
+$accent: #6F2036;
+$accent-dark: #3B1120;
+$accent-second: #785a36;
+
+// Hovers
+$dark-hov: create-rgba($dark, 0.9);
+$accent-hov: #ffc400;
+$accent-second-hov: brig-color($accent-second, active);
+
+// Задний фон разделов
+$frame-dark: $dark;
+$frame-light: $light;
+$frame-gray: #F8F8F8;
+
+// Обводка
+$border-color-light: #e5e5e5;
+// $border-color-dark: #aca191;
+
+// Радиусы
+$radius-s: 8px;
+$radius-l: 20px;
+$radius-max: 999px;
+$radius-round: 50%;
+
+// Текстовые поля
+$input-placeholder: create-rgba($text-primary, 0.3);
+
+// Уведомления
+$error: #fa9d9d;
+
+// Разрешения экранов
+$min-width: 320px;
+$max-width: 1920px;
+$max-width-container: 1720;
+$container-padding: 48;
+$container-width: $max-width-container + $container-padding;
+
+// Разрешения экранов
+$laptop-l: 1500px;
+$laptop: 1150px;
+$tablet: 800px;
+$mobile-l: 450px;
+$mobile-m: 390px;
+$mobile-s: 330px;
+$hide-menu: 900px;
+
+// Прочее
+$modal-bg: #f5f5f5;
+$ff-main: 'Hauora', sans-serif;
+$ff-title: 'Lena', sans-serif;
+$tr: 0.3s;
+
+// ========== ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ ==========
+
+:root {
+    --container-padding: #{math.div($container-padding, 2) + 'px'};
+    --container-width: #{$container-width + 'px'};
+    --hide-menu: #{$tablet};
+
+    // Иконки
+    --icon-preloader: url("data:image/svg+xml,%3Csvg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cpath d=\"M24 12C24 9.62662 23.2962 7.30655 21.9776 5.33316C20.6591 3.35977 18.7849 1.8217 16.5922 0.913446C14.3995 0.005194 11.9867 -0.232446 9.65892 0.230577C7.33114 0.693599 5.19295 1.83649 3.51472 3.51472C1.83649 5.19295 0.693599 7.33114 0.230577 9.65892C-0.232446 11.9867 0.00519403 14.3995 0.913446 16.5922C1.8217 18.7849 3.35977 20.6591 5.33316 21.9776C7.30655 23.2962 9.62662 24 12 24L12 20.4C10.3386 20.4 8.71458 19.9073 7.33321 18.9843C5.95184 18.0613 4.87519 16.7494 4.23941 15.2145C3.60364 13.6796 3.43729 11.9907 3.7614 10.3612C4.08552 8.7318 4.88554 7.23506 6.0603 6.0603C7.23506 4.88554 8.7318 4.08552 10.3612 3.7614C11.9907 3.43729 13.6796 3.60364 15.2145 4.23941C16.7494 4.87519 18.0613 5.95184 18.9843 7.33321C19.9073 8.71458 20.4 10.3386 20.4 12H24Z\" fill=\"%23D9D9D9\"/%3E%3C/svg%3E");
+}
+
+// Сброс CSS
+@import './reset';
+
+html {
+    font-size: 22px;
+    scroll-behavior: smooth;
+    scroll-padding-top: 100px;
+
+    @media (max-width: 1550px) {
+        font-size: 18px;
+    }
+
+    @media (max-width: 1200px) {
+        font-size: 16px;
+    }
+}
+
+body {
+    font-family: $ff-main;
+    // font-size: rem(22);
+    font-weight: 400;
+    color: $text-primary;
+    line-height: 1.5;
+
+    .is-lock & {
+        position: relative;
+        overflow: hidden;
+        touch-action: none;
+        padding-right: var(--body-padding-right);
+
+        // &::before {
+        //     content: '';
+        //     position: fixed;
+        //     top: 0;
+        //     right: 0;
+        //     height: 100%;
+        //     background-color: $dark;
+        //     width: var(--body-padding-right);
+        // }
+    }
+
+    // @media (max-width: 500px) {
+    //     font-size: rem(14, 16);
+    // }
+}
+
+.wrap {
+    transition: transform ease-in-out .5s, filter ease-in-out .5s;
+
+    &.is-substrate {
+        // transform: scale(.9) translateY(-5%);
+        filter: blur(5px);
+    }
+
+    &.has-loader {
+
+        &::after {
+            z-index: 3;
+        }
+
+        &::before {
+            z-index: 2;
+        }
+
+        &::after,
+        &::before {
+            position: fixed;
+            pointer-events: none;
+        }
+
+        &.is-loading {
+            pointer-events: fill;
+        }
+    }
+}
+
+*::selection {
+    background-color: $dark;
+    color: $light;
+}
+
+.content {
+    & > *:not(:last-child) {
+        margin-bottom: 50px;
+
+        @media (max-width: $mobile-l) {
+            margin-bottom: 32px;
+        }
+    }
+}
+
+// Стили будут применяться ко всем классам содержащим *__container, кроме тех, где также используется класс .container-reset
+[class*='__container']:not(.container-reset) {
+    @if ($max-width-container > 0) {
+        max-width: $max-width-container + px;
+        box-sizing: content-box;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    @if ($container-padding > 0) {
+        padding: 0 var(--container-padding);
+    }
+
+    // @media (max-width: $max-width-container + $container-padding + px) {
+    //     max-width: $laptop-l;
+    // }
+
+    // @media (max-width: 1548px) {
+    //     max-width: $laptop;
+    // }
+
+    // @media (max-width: 1548px) {
+    //     max-width: $laptop;
+    // }
+
+    // @media (max-width: 1198px) {
+    //     max-width: 852px;
+    // }
+
+    @media (max-width: $mobile-l) {
+        --container-padding: 20px;
+    }
+
+    @media (max-width: $mobile-m) {
+        --container-padding: 16px;
+    }
+}
+
+// ========== БИБЛИОТЕКИ ==========
+
+// @import "./libs/swiper";
+// @import "./libs/lightgallery";
+// @import "./libs/rangeslider";
+
+// ========== ПОДКЛЮЧЕНИЕ ФАЙЛОВ ==========
+// Базовые стили, шаблоны, заготовки
+@import './base';
+
+// Общие стили проекта
+@import './common';
+
+// Компоненты
+// @import "./components/";
+
+// Блоки
+// @import "./blocks/";
+
+// Карточки
+// @import "./cards/";
+
+
+// Модальные окна
+// @import "./components/modals/";
+
+// Секции
+@import './sections/header';
+@import './sections/seo';
+@import './sections/map';
+@import './sections/footer';
