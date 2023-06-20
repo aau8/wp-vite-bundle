@@ -6,7 +6,9 @@ import SVGSpritemapPlugin from 'svg-spritemap-webpack-plugin'
 import * as path from 'path'
 import fs from 'fs'
 import { fileURLToPath } from 'url'
+import config from '../../config.json' assert { type: 'json' }
 
+const THEME_NAME = config.THEME_NAME
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const publicFolder = path.resolve(__dirname, '..', 'public')
 const iconsFolder = path.resolve(publicFolder, 'icons-to-sprite')
@@ -27,7 +29,7 @@ export default {
     plugins: [
         new SVGSpritemapPlugin('public/icons-to-sprite/*.svg', {
             output: {
-                filename: `../../../ThemeName/dist/img/sprite.svg`,
+                filename: `../../../${THEME_NAME}/dist/img/sprite.svg`,
                 svg: {
                     sizes: false,
                 },

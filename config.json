@@ -1,5 +1,5 @@
 {
     "THEME_NAME": "ThemeName",
-    "THEME_DOMAIN": "test-domain",
+    "THEME_DOMAIN": "theme-domain",
     "PORT": 5133
 }
